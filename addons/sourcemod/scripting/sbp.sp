@@ -8,7 +8,7 @@
 public Plugin myinfo =
 {
     name = "[PTaH] Block SM Commands",
-    author = "Bara + igroman1266 (объединено)",
+    author = "Bara + igroman1266",
     version = "1.1",
     url = "https://github.com/Bara"
 };

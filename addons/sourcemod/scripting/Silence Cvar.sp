@@ -3,7 +3,7 @@
 public Plugin myinfo = 
 {
 	name = "Silence Cvar", 
-	author = "NZ", 
+	author = "", 
 	description = "Silence Cvar", 
 	version = "1.0", 
 	url = ""
