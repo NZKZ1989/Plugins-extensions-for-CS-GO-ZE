@@ -1,0 +1,48 @@
+"Phrases"
+{
+	"GloveMenuTitle"
+	{
+		"en"	"Gloves Menu"
+		"ru"    "Меню перчаток"
+	}
+	"CT"
+	{
+		"en"	"Counter-Terrorist"
+		"ru"    "Контр-Террорист"
+	}
+	"T"
+	{
+		"en"	"Terrorist"
+		"ru"    "Террорист"
+	}
+	"Increase"
+	{
+		"en"	"Increase by %d%%"
+		"ru"    "Увеличить на %d%%"
+	}
+	"Decrease"
+	{
+		"en"	"Decrease by %d%%"
+		"ru"    "Уменьшить на %d%%"
+	}
+	"ChooseLanguage"
+	{
+		"en"	"Select language for glove names:"
+		"ru"    "Выберите язык для перчаток:"
+	}
+	"DefaultGloves"
+	{
+		"en"	"Default"
+		"ru"    "Стандартные"
+	}
+	"RandomGloves"
+	{
+		"en"	"Random"
+		"ru"    "Случайные"
+	}
+	"SetFloat"
+	{
+		"en"	"Gloves Condition: "
+		"ru"    "Состояние перчаток: "
+	}
+}

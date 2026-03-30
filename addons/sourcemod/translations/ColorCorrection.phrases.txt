@@ -1,0 +1,59 @@
+"Phrases"
+{
+    "prefix"
+    {
+        "en"    "[ColorCorrection]"
+        "jp"    "[ColorCorrection]"
+        "zh-CN" "[ColorCorrection]"
+        "zh-TW" "[ColorCorrection]"
+        "ru"    "[ColorCorrection]"
+    }
+    "ColorCorrection"
+    {
+        "en"    "ColorCorrection"
+        "jp"    "ColorCorrection (マップのカラー補正)"
+        "zh-CN" "屏蔽地图色彩修正"
+        "zh-TW" "屏蔽地圖色彩修正"
+        "ru"    "Цветокоррекция"
+    }
+    "ControllerMenu Title"
+    {
+        "en"    "ColorCorrection Controller\n \n"
+        "jp"    "ColorCorrection コントローラー\n \n"
+        "zh-CN" "屏蔽地图色彩修正\n \n"
+        "zh-TW" "屏蔽地圖色彩修正\n \n"
+        "ru"    "Контроллер цветокоррекции\n \n"
+    }
+    "Block Color Correction"
+    {
+        "en"    "Block map color correction"
+        "jp"    "マップのカラー補正をブロックする"
+        "zh-CN" "屏蔽色彩修正"
+        "zh-TW" "屏蔽色彩修正"
+        "ru"    "Блокировать цветокоррекцию карты"
+    }
+    "Enabled"
+    {
+        "en"    "Enabled"
+        "jp"    "有効"
+        "zh-CN" "已屏蔽"
+        "zh-TW" "已屏蔽"
+        "ru"    "Включено"
+    }
+    "Disabled"
+    {
+        "en"    "Disabled"
+        "jp"    "無効"
+        "zh-CN" "未屏蔽"
+        "zh-TW" "未屏蔽"
+        "ru"    "Выключено"
+    }
+    "Plugin Disabled"
+    {
+        "en"    "This feature is not available in this map"
+        "jp"    "この機能は現在のマップでは利用できません"
+        "zh-CN" "这张地图不可使用该功能"
+        "zh-TW" "這張地圖不可使用該功能"
+        "ru"    "Эта функция недоступна на данной карте"
+    }
+}

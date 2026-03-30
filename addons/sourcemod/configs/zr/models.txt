@@ -1,0 +1,134 @@
+// ============================================================================
+//
+//                              ZOMBIE:RELOADED
+//                            Model configuration
+//
+// See Model Configuration (3.5) section in the manual for detailed info.
+//
+// ============================================================================
+//
+// SHORT DESCRIPTIONS
+//
+// Attribute:   Description:
+// ----------------------------------------------------------------------------
+// name     Name of model file, without extension.
+// path     Path to model files. MUST end with "/".
+// team     Model type:
+//              "zombies"
+//              "humans"
+// access   Access type:
+//              "public"        - Everyone can use the model.
+//              "admins"        - Model can only be used by admins.    
+//              "hidden"        - Model is excluded from public random selections.
+//              "motherzombies" - Model can only be used by mother zombies.
+//              "group"         - Use group authentication.
+// group    If access is "group": A SourceMod group name. Otherwise blank ("").
+
+"models"
+{ 
+    "zh3fix3"
+    {
+        "name"      "zh3fix3"
+        "path"      "models/player/mapeadores/morell/zh/"
+        "team"      "zombies"
+        "access"    "public"
+        "group"     ""
+    }
+    
+	"Stalker"
+    {
+        "name"      "stalker"
+        "path"      "models/player/kodua/invisible_bitch/"
+        "team"      "zombies"
+        "access"    "public"
+        "group"     ""
+    }
+
+	"Frazzle"
+    {
+        "name"      "frazzle"
+        "path"      "models/player/redogg/"
+        "team"      "zombies"
+        "access"    "public"
+        "group"     ""
+    }
+	
+	"Scientist"
+    {
+        "name"      "zombie_scientist"
+        "path"      "models/player/custom_player/eminem/bms/zombie_scientist/"
+        "team"      "zombies"
+        "access"    "public"
+        "group"     ""
+    }
+	
+	"Prisonguard"
+    {
+        "name"      "prisonguard"
+        "path"      "models/player/custom_player/caleon1/prisonguard/"
+        "team"      "humans"
+        "access"    "public"
+        "group"     ""
+    }
+	
+	"Umbrellaforce"
+    {
+        "name"      "umbrellaforce"
+        "path"      "models/player/custom_player/ceylon/cs/zombieforce/"
+        "team"      "humans"
+        "access"    "public"
+        "group"     ""
+    }
+	
+	"Solidsnake"
+    {
+        "name"      "solidsnake"
+        "path"      "models/player/solidsnake/"
+        "team"      "humans"
+        "access"    "public"
+        "group"     ""
+    }
+	
+	"Kz2_rifleman"
+    {
+        "name"      "kz2_rifleman"
+        "path"      "models/player/killzone2/"
+        "team"      "humans"
+        "access"    "public"
+        "group"     ""
+    }
+
+    // Special model examples:
+    // -----------------------
+    
+    // Only admins can use this zombie model.
+    //"admin_zombie"
+    //{
+    //    "name"      "1337model"
+    //    "path"      "models/player/adminmodels/"
+    //    "team"      "zombies"
+    //    "access"    "admins"
+    //    "group"     ""
+    //}
+    
+    // Only members of the zr_vip group in SourceMod can use this human model.
+    //"vip_human"
+    //{
+    //    "name"      "vipmodel"
+    //    "path"      "models/player/vip/"
+    //    "team"      "humans"
+    //    "access"    "group"
+    //    "group"     "zr_vip"
+    //}
+    
+    // This model will be excluded from public random selections. Only classes
+    // that use "random_hidden" or explicit specify this model will be able to use it.
+    //"hidden"
+    //{
+    //    "name"      "hiddenmodel"
+    //    "path"      "models/player/"
+    //    "team"      "humans"
+    //    "access"    "hidden"
+    //    "group"     ""
+    //}
+}

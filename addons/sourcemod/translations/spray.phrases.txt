@@ -1,0 +1,76 @@
+/*
+{DEFAULT} - Белый
+{GRAY} - Серый
+{RED} - Красный
+{LIGHTRED} - Светло-Красный
+{BLUE} - Синий
+{LIGHTBLUE} - Светло-Синий
+{PURPLE} - Фиолетовый
+{LIGHTPURPLE} - Светло-Фиолетовый
+{GREEN} - Зеленый
+{LIGHTGREEN} - Светло-Зеленый
+{LIME} - Лаймовый
+{OLIVE} - Оливковый
+{LIGHTOLIVE} - Светло-Оливковый
+*/
+
+"Phrases"
+{
+	"PREFIX"
+	{
+		"en"			"{GREEN}[SPRAYS]{DEFAULT} "
+		"ru"			"{GREEN}[SPRAYS]{DEFAULT} "
+	}
+	"RANDOM"
+	{
+		"en"			"Random spray"
+		"ru"			"Случайный спрей"
+	}
+	"SM"
+	{
+		"en"			"Select collection:"
+		"ru"			"Выберите коллекцию:"
+	}
+	"SMM"
+	{
+		"en"			"Choose Spray:"
+		"ru"			"Выберите спрей:"
+	}
+	"SD"
+	{
+		"en"			"You need to be alive to use spray!"
+		"ru"			"Вы должны быть живы, чтобы использовать спрей!"
+	}
+	"ST"
+	{
+		"#format"		"{1:i}"
+		"en"			"You need to wait {GREEN}{1}{DEFAULT} second(s) to use spray again!"
+		"ru"			"Подождите {GREEN}{1}{DEFAULT} секунд, чтобы снова использовать спрей!"
+	}
+	"SDD"
+	{
+		"en"			"You are too far away from the wall to use spray!"
+		"ru"			"Вы слишком далеко от стены, чтобы использовать спрей!"
+	}
+	"SE"
+	{
+		"en"			"Your spray doesn't work, choose another one with sprays!"
+		"ru"			"Ваш спрей не работает, выберите другой спрей! "
+	}
+	"SR"
+	{
+		"en"			"You have choosen a {GREEN}random{DEFAULT} spray!"
+		"ru"			"Вы выбрали {GREEN}случайный{DEFAULT} спрей! "
+	}
+	"SS"
+	{
+		"#format"		"{1:s}"
+		"en"			"You have choosen {GREEN}{1}{DEFAULT} as your spray!"
+		"ru"			"Вы выбрали {GREEN}{1}{DEFAULT} в качестве спрея!"
+	}
+	"SU"
+	{
+		"en"			"Spray applied successfully!"
+		"ru"			"Спрей успешно нанесен!"
+	}
+}

@@ -1,0 +1,534 @@
+"Phrases"
+{
+	"EW_Tag"
+	{
+		"ru" 	"[EntWatch]"
+	}
+	"Welcome"
+	{
+		"ru" 	"Текущая карта поддерживается данным плагином"
+	}
+	"No Config"
+	{
+		"ru" 	"Для текущей карты нет конфигурационного файла."
+	}
+	"Use"
+	{
+		"ru" 	"использовал"
+	}
+	"Use First"
+	{
+		"ru" 	"использовал 1-ую способность"
+	}
+	"Use Second"
+	{
+		"ru" 	"использовал 2-ую способность"
+	}
+	"Pickup"
+	{
+		"ru" 	"подобрал"
+	}
+	"Drop"
+	{
+		"ru" 	"выбросил"
+	}
+	"Death"
+	{
+		"ru" 	"умер с"
+	}
+	"Death and drop"
+	{
+		"ru" 	"умер и сбросил"
+	}
+	"Disconnect"
+	{
+		"ru" 	"отключился из игры с"
+	}
+	"Disconnect and drop"
+	{
+		"ru" 	"отключился и сбросил"
+	}
+	"Enabled"
+	{
+		"ru" 	"Включена"
+	}
+	"Disabled"
+	{
+		"ru" 	"Отключена"
+	}
+	"Hud"
+	{
+		"ru" 	"Информация в HUD"
+	}
+	"Wrong"
+	{
+		"ru" 	"Неправильно"
+	}
+	"Saved"
+	{
+		"ru" 	"Сохранён"
+	}
+	"Usage"
+	{
+		"ru" 	"Использование"
+	}
+	"Restricted"
+	{
+		"ru" 	"запретил подбор предметов игроку"
+	}
+	"Unrestricted"
+	{
+		"ru" 	"разрешил подбор предметов игроку"
+	}
+	"Duration"
+	{
+		"ru" 	"Длительность"
+	}
+	"EBan Duration for"
+	{
+		"ru" 	"Длительность ЕБана для"
+	}
+	"EBan Reason for"
+	{
+		"ru" 	"Причина ЕБана для"
+	}
+	"EUnBan Reason for"
+	{
+		"ru" 	"Причина разЕБана для"
+	}
+	"Temporary"
+	{
+		"ru" 	"Временный"
+	}
+	"Permanently"
+	{
+		"ru" 	"Перманентный"
+	}
+	"For Minutes"
+	{
+		"#format"	"{1:i}"
+		"ru" 	"на {1} минут"
+	}
+	"Issued"
+	{
+		"ru" 	"Выдан"
+	}
+	"Reason"
+	{
+		"ru" 	"Причина"
+	}
+	"Invalid SteamID"
+	{
+		"ru"	"Вы не можете подбирать предметы с неверным SteamID. Пожалуйста, перезайдите на сервер или напишите менеджеру"
+	}
+	"Currently Eban"
+	{
+		"ru" 	"Список ЗаЕБаненных игроков"
+	}
+	"Player"
+	{
+		"ru" 	"Игрок"
+	}
+	"Admin"
+	{
+		"ru" 	"Админ"
+	}
+	"No EBans"
+	{
+		"ru" 	"Нет ЕБанов"
+	}
+	"No owner"
+	{
+		"ru" 	"Без владельца"
+	}
+	"No Receivers"
+	{
+		"ru" 	"Нет получателей"
+	}
+	"No Players"
+	{
+		"ru" 	"Нет игроков"
+	}
+	"Already EBanned"
+	{
+		"ru" 	"Уже заЕБанен"
+	}
+	"Already UnEBanned"
+	{
+		"ru" 	"Уже разЕБанен"
+	}
+	"Restricted By"
+	{
+		"ru" 	"ограничен"
+	}
+	"Invalid item name"
+	{
+		"ru" 	"Ошибка в имени итема"
+	}
+	"Has a Restrict"
+	{
+		"ru" 	"имеет запрет на подбор предметов"
+	}
+	"Transfered all items"
+	{
+		"ru" 	"передал все итемы от"
+	}
+	"Transfered"
+	{
+		"ru" 	"передал"
+	}
+	"Differs team"
+	{
+		"ru" 	"Получатель и Отправитель находятся в разных командах"
+	}
+	"Already owns"
+	{
+		"ru" 	"Получатель уже владеет данным итемом"
+	}
+	"Target has no items"
+	{
+		"ru" 	"Отправитель не имеет итемов"
+	}
+	"EW to"
+	{
+		"ru" 	"игроку"
+	}
+	"Item targets"
+	{
+		"ru" 	"Выберите предмет"
+	}
+	"Item to Spawn"
+	{
+		"ru" 	"Выберите итем для спавна"
+	}
+	"Player is not valid anymore"
+	{
+		"ru" 	"Игрок больше не доступен"
+	}
+	"Receiver is not valid anymore"
+	{
+		"ru" 	"Получатель больше не доступен"
+	}
+	"The player must be in one of the teams"
+	{
+		"ru" 	"Игрок должен играть за одну из команд"
+	}
+	"PT configuration not found"
+	{
+		"ru" 	"Итем не имеет соответствующей конфигурации"
+	}
+	"PT configuration Error"
+	{
+		"ru" 	"Point_Template не найден"
+	}
+	"Item not available"
+	{
+		"ru" 	"Итем больше не доступен"
+	}
+	"EntWatch Commands"
+	{
+		"ru" 	"EntWatch Команды"
+	}
+	"EntWatch Commands Title"
+	{
+		"ru" 	"[EntWatch] Команды"
+	}
+	"List of Items"
+	{
+		"ru" 	"Список итемов"
+	}
+	"EBan a Player"
+	{
+		"ru" 	"ЗаЕБанить игрока"
+	}
+	"List of EBan"
+	{
+		"ru" 	"Список ЕБанов"
+	}
+	"Spawn an Item"
+	{
+		"ru" 	"Заспавнить предмет"
+	}
+	"Restrict Player"
+	{
+		"ru" 	"Запретить игроку подбирать итемы"
+	}
+	"EBan Info"
+	{
+		"ru" 	"Информация о ЕБан"
+	}
+	"Transfer Item"
+	{
+		"ru" 	"Передать итем"
+	}
+	"UnEBan a Player"
+	{
+		"ru" 	"РазЕБанить игрока"
+	}
+	"Receiver of the Item"
+	{
+		"ru" 	"Выберите получателя предмета"
+	}
+	"Item Info"
+	{
+		"ru" 	"Информация о предмете"
+	}
+	"Owner"
+	{
+		"ru" 	"Владелец"
+	}
+	"Mode"
+	{
+		"ru" 	"Режим"
+	}
+	"CoolDown"
+	{
+		"ru" 	"Кулдаун"
+	}
+	"Name"
+	{
+		"ru" 	"Имя"
+	}
+	"Short Name"
+	{
+		"ru" 	"Сокр.имя"
+	}
+	"Block Item"
+	{
+		"ru" 	"Заблокирован"
+	}
+	"Current Uses"
+	{
+		"ru" 	"Текущее использование"
+	}
+	"Max Uses"
+	{
+		"ru" 	"Макс.использований"
+	}
+	"Button"
+	{
+		"ru" 	"Кнопка"
+	}
+	"Mode Default"
+	{
+		"ru" 	"Защита от спама"
+	}
+	"Mode 2"
+	{
+		"ru" 	"Кулдаун"
+	}
+	"Mode 3"
+	{
+		"ru" 	"Использования"
+	}
+	"Mode 4"
+	{
+		"ru" 	"Использования с перезарядкой"
+	}
+	"Mode 5"
+	{
+		"ru" 	"Перезарядка после множества использований"
+	}
+	"Minutes"
+	{
+		"ru" 	"Минут"
+	}
+	"Hour"
+	{
+		"ru" 	"Час"
+	}
+	"Day"
+	{
+		"ru" 	"День"
+	}
+	"Week"
+	{
+		"ru" 	"Неделя"
+	}
+	"Month"
+	{
+		"ru" 	"Месяц"
+	}
+	"Item misuse"
+	{
+		"ru" 	"Неправильно использование предмета"
+	}
+	"Trolling on purpose"
+	{
+		"ru" 	"Троллинг"
+	}
+	"Throwing item away"
+	{
+		"ru" 	"Выбросил итем"
+	}
+	"Not using an item"
+	{
+		"ru" 	"Не использует предмет"
+	}
+	"Trimming team"
+	{
+		"ru" 	"Тримминг команды"
+	}
+	"Spamming an item"
+	{
+		"ru" 	"Спам итемом"
+	}
+	"Not listening to leader"
+	{
+		"ru" 	"Не слушает лидера"
+	}
+	"Wrong target"
+	{
+		"ru"	"Неправильная цель"
+	}
+	"Giving another chance"
+	{
+		"ru"	"Выдан второй шанс"
+	}
+	"Bad duration"
+	{
+		"ru"	"Неправильное время"
+	}
+	"Was not on purpose"
+	{
+		"ru"	"Было неспециально"
+	}
+	"Other"
+	{
+		"ru" 	"Другая"
+	}
+	"Expires"
+	{
+		"ru" 	"Истекает"
+	}
+	"On Map Change"
+	{
+		"ru" 	"После смены карты"
+	}
+	"Never"
+	{
+		"ru" 	"Никогда"
+	}
+	"Spawn Item"
+	{
+		"ru" 	"Заспавнил предмет"
+	}
+	"On Player"
+	{
+		"ru" 	"На игроке"
+	}
+	"List to Spawn"
+	{
+		"ru" 	"Список предметов для спавна"
+	}
+	"Strip Weapon"
+	{
+		"ru" 	"Забрать оружие"
+	}
+	"Not Strip Weapon"
+	{
+		"ru" 	"Не забирать оружие"
+	}
+	"Recipient of a New Item"
+	{
+		"ru" 	"Получатель нового предмета"
+	}
+	"No Items for Spawn"
+	{
+		"ru" 	"Нет предметов для спавна"
+	}
+	"Client Eban numbers"
+	{
+		"#format"	"{1:d}"
+		"ru" 	"был ЕБанов {1} раз"
+	}
+	"Is not restricted"
+	{
+		"ru" 	"может использовать предметы"
+	}
+	"Default"
+	{
+		"ru" 	"По умолчанию"
+	}
+	"Modified"
+	{
+		"ru"	"Измененный"
+	}
+	"Status"
+	{
+		"ru"	"Статус"
+	}
+	"Hud Type"
+	{
+		"ru" 	"Тип HUD"
+	}
+	"HUD"
+	{
+		"ru"	"HUD"
+	}
+	"KeyHintText"
+	{
+		"ru"	"KeyHintText"
+	}
+	"Hud Names"
+	{
+		"ru" 	"Информация о именах в HUD теперь"
+	}
+	"Hud Item Number"
+	{
+		"ru" 	"Предметов на странице"
+	}
+	"Hud Rotation Time"
+	{
+		"ru" 	"Время перелистывания"
+	}
+	"Offline EBan"
+	{
+		"ru" 	"ЗаЕбанить оффлайн игрока"
+	}
+	"Offline Restricted"
+	{
+		"ru" 	"Запретил подбор предметов оффлайн игроку"
+	}
+	"List of Disconnected Players"
+	{
+		"ru" 	"Список отключившихся игроков"
+	}
+	"Minutes Ago"
+	{
+		"ru" 	"минут назад"
+	}
+	"Info Offline Player"
+	{
+		"ru" 	"Информация об оффлайн игроке"
+	}
+	"Came out"
+	{
+		"ru" 	"Вышел"
+	}
+	"Last Item"
+	{
+		"ru" 	"Последний предмет"
+	}
+	"Not have permission pEBan"
+	{
+		"ru" 	"Вы не имеете доступа к ЕБанам навсегда"
+	}
+	"Not have permission lEBan"
+	{
+		"#format"	"{1:i}"
+		"ru" 		"Вы не имеете доступа для выдачи ЕБана более чем на {1} минут"
+	}
+	"Not have permission rEBan"
+	{
+		"ru" 	"Вы не имеете доступа чтобы снимать ЕБан навсегда"
+	}
+	"Reload Configs"
+	{
+		"ru"	"Конфиги перезагружены..."
+	}
+	"Hud Items"
+	{
+		"ru"	"HUD предметов"
+	}
+}

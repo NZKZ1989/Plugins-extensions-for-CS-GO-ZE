@@ -1,0 +1,12 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models/player/kodua/invisible_bitch/invisible"
+	"$bumpmap" "models/player/kodua/invisible_bitch/invisible_normal"
+	"$phong" "1"
+	"$phongexponent" "45"
+	"$phongboost" ".01"
+	"$phongfresnelranges" "[5 6 8]"
+	"$PhongAlbedoTint" "1"
+
+	"$halflambert" "1"
+}

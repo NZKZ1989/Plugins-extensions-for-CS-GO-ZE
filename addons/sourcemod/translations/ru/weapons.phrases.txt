@@ -1,0 +1,439 @@
+"Phrases"
+{
+	"WSMenuTitle"
+	{
+		"ru"	"Меню скинов"
+	}
+	"ChooseKnife"
+	{
+		"ru"	"★ Изменить нож ★"
+	}
+	"ConfigAllWeapons"
+	{
+		"ru"	"Настроить все оружия"
+	}
+	"KnifeMenuTitle"
+	{
+		"ru"	"★ Выбор ножа ★"
+	}
+	"AllWeaponsMenuTitle"
+	{
+		"ru"	"Все оружия"
+	}
+	"Increase"
+	{
+		"ru"	"Увеличить на %d%%"
+	}
+	"Decrease"
+	{
+		"ru"	"Уменьшить на %d%%"
+	}
+	"NameTagInfo"
+	{
+		"ru"	"Используйте !nametag <tag>, чтобы выбрать именной ярлык для вашего текущего оружия!"
+	}
+	"NameTagColor"
+	{
+		"ru"	"Установить цвет именного ярлыка"
+	}
+	"NameTagDisabled"
+	{
+		"ru"	"Использование именного ярлыка выключено в данный момент."
+	}
+	"DontSpamNameTag"
+	{
+		"ru"	"Подождите некоторое время, прежде чем использовать !nametag."
+	}
+	"NameTagNeedsParams"
+	{
+		"ru"	"Используйте: !nametag <tag>"
+	}
+	"ChooseLanguage"
+	{
+		"ru"	"Выбрать язык для названия скинов:"
+	}
+	"ChooseColor"
+	{
+		"ru"	"Выбрать цвет:"
+	}
+	"DefaultColor"
+	{
+		"ru"	"Стандартный"
+	}
+	"DefaultSkin"
+	{
+		"ru"	"Стандартный"
+	}
+	"RandomSkin"
+	{
+		"ru"	"Случайный"
+	}
+	"Black"
+	{
+		"ru"	"Чёрный"
+	}
+	"Grey"
+	{
+		"ru"	"Серый"
+	}
+	"Red"
+	{
+		"ru"	"Красный"
+	}
+	"Green"
+	{
+		"ru"	"Зелёный"
+	}
+	"Blue"
+	{
+		"ru"	"Синий"
+	}
+	"DeleteNameTag"
+	{
+		"ru"	"Удалить именной ярлык"
+	}
+	"OwnKnife"
+	{
+		"ru"	"★ Ваш нож"
+	}
+	"RandomKnife"
+	{
+		"ru"	"★ Случайный нож"
+	}
+	"SetSkin"
+	{
+		"ru"	"Выбрать скин"
+	}
+	"SetFloat"
+	{
+		"ru"	"Качество: "
+	}
+	"StatTrak"
+	{
+		"ru"	"StatTrak™: "
+	}
+	"SetNameTag"
+	{
+		"ru"	"Именной ярлык"
+	}
+	"On"
+	{
+		"ru"	"Включено"
+	}
+	"Off"
+	{
+		"ru"	"Выключено"
+	}
+	"weapon_galilar"
+	{
+		"ru"	"Galil AR"
+	}
+	"weapon_awp"
+	{
+		"ru"	"AWP"
+	}
+	"weapon_m4a1"
+	{
+		"ru"	"M4A4"
+	}
+	"weapon_m4a1_silencer"
+	{
+		"ru"	"M4A1-S"
+	}
+	"weapon_cz75a"
+	{
+		"ru"	"CZ75-Auto"
+	}
+	"weapon_revolver"
+	{
+		"ru"	"Револьвер R8"
+	}
+	"weapon_deagle"
+	{
+		"ru"	"Desert Eagle"
+	}
+	"weapon_g3sg1"
+	{
+		"ru"	"G3SG1"
+	}
+	"weapon_scar20"
+	{
+		"ru"	"SCAR-20"
+	}
+	"weapon_sawedoff"
+	{
+		"ru"	"Sawed-Off"
+	}
+	"weapon_negev"
+	{
+		"ru"	"Negev"
+	}
+	"weapon_ssg08"
+	{
+		"ru"	"SSG 08"
+	}
+	"weapon_sg556"
+	{
+		"ru"	"SG 553"
+	}
+	"weapon_nova"
+	{
+		"ru"	"Nova"
+	}
+	"weapon_xm1014"
+	{
+		"ru"	"XM1014"
+	}
+	"weapon_p90"
+	{
+		"ru"	"P90"
+	}
+	"weapon_p250"
+	{
+		"ru"	"P250"
+	}
+	"weapon_fiveseven"
+	{
+		"ru"	"Five-SeveN"
+	}
+	"weapon_aug"
+	{
+		"ru"	"AUG"
+	}
+	"weapon_elite"
+	{
+		"ru"	"Dual Berettas"
+	}
+	"weapon_m249"
+	{
+		"ru"	"M249"
+	}
+	"weapon_mac10"
+	{
+		"ru"	"MAC-10"
+	}
+	"weapon_mag7"
+	{
+		"ru"	"MAG-7"
+	}
+	"weapon_mp7"
+	{
+		"ru"	"MP7"
+	}
+	"weapon_mp9"
+	{
+		"ru"	"MP9"
+	}
+	"weapon_tec9"
+	{
+		"ru"	"Tec-9"
+	}
+	"weapon_ump45"
+	{
+		"ru"	"UMP-45"
+	}
+	"weapon_ak47"
+	{
+		"ru"	"AK-47"
+	}
+	"weapon_bizon"
+	{
+		"ru"	"ПП-19 Бизон"
+	}
+	"weapon_usp_silencer"
+	{
+		"ru"	"USP-S"
+	}
+	"weapon_hkp2000"
+	{
+		"ru"	"P2000"
+	}
+	"weapon_famas"
+	{
+		"ru"	"FAMAS"
+	}
+	"weapon_glock"
+	{
+		"ru"	"Glock-18"
+	}
+	"weapon_mp5sd"
+	{
+		"ru"	"MP5-SD"
+	}
+	"weapon_bayonet"
+	{
+		"ru"	"★ Штык-нож"
+	}
+	"weapon_knife_gut"
+	{
+		"ru"	"★ Нож с лезвием-крюком"
+	}
+	"weapon_knife_flip"
+	{
+		"ru"	"★ Складной нож"
+	}
+	"weapon_knife_m9_bayonet"
+	{
+		"ru"	"★ Штык-нож M9"
+	}
+	"weapon_knife_karambit"
+	{
+		"ru"	"★ Керамбит"
+	}
+	"weapon_knife_tactical"
+	{
+		"ru"	"★ Охотничий нож"
+	}
+	"weapon_knife_butterfly"
+	{
+		"ru"	"★ Нож-бабочка"
+	}
+	"weapon_knife_falchion"
+	{
+		"ru"	"★ Фальшион"
+	}
+	"weapon_knife_push"
+	{
+		"ru"	"★ Тычковые ножи"
+	}
+	"weapon_knife_survival_bowie"
+	{
+		"ru"	"★ Нож Боуи"
+	}
+	"weapon_knife_ursus"
+	{
+		"ru"	"★ Медвежий нож"
+	}
+	"weapon_knife_gypsy_jackknife"
+	{
+		"ru"	"★ Наваха"
+	}
+	"weapon_knife_stiletto"
+	{
+		"ru"	"★ Стилет"
+	}
+	"weapon_knife_widowmaker"
+	{
+		"ru"	"★ Коготь"
+	}
+	"weapon_knife_css"
+	{
+		"ru"	"★ Классический нож"
+	}
+	"weapon_knife_cord"
+	{
+		"ru"	"★ Паракорд-нож"
+	}
+	"weapon_knife_canis"
+	{
+		"ru"	"★ Нож выживания"
+	}
+	"weapon_knife_outdoor"
+	{
+		"ru"	"★ Нож Бродяга"
+	}
+	"weapon_knife_skeleton"
+	{
+		"ru"	"★ Скелетный нож"
+	}
+	"weapon_knife_t"
+	{
+		"ru"	"Нож"
+	}
+	"weapon_knife"
+	{
+		"ru"	"Нож"
+	}
+	"ChangeNameTag"
+	{
+		"ru"	"Установить именной ярлык"
+	}
+	"NameTagNew"
+	{
+		"ru"	"Теперь вы можете использовать меню !ws для установки именного ярлыка"
+	}
+	"GracePeriod"
+	{
+		"ru"	"Вы можете использовать команду !ws тольком в том случае, если вы мертвы или в первые %d секунд после начала каждого раунда"
+	}
+	"ChangeLang"
+	{
+		"ru"	"Сменить язык"
+	}
+	"NameTagCancelled"
+	{
+		"ru"	"Установка именного ярлыка отменена."
+	}
+	"Yellow"
+	{
+		"ru"	"Желтый"
+	}
+	"NameTagInstruction"
+	{
+		"ru"	"Напишите свой именной ярлык в чат. Для отмены, напишите !cancel"
+	}
+	"NameTagSuccess"
+	{
+		"ru"	"Именной ярлык успешно применён"
+	}
+	"Seed"
+	{
+		"ru"	"Паттерн"
+	}
+	"SeedTitle"
+	{
+		"ru"	"Паттерн: %i"
+	}
+	"SeedTitleNoSeed"
+	{
+		"ru"	"Паттерн: ∞"
+	}
+	"SeedRandom"
+	{
+		"ru"	"Случайный Паттерн"
+	}
+	"SeedManual"
+	{
+		"ru"	"Собственный Паттерн"
+	}
+	"SeedSave"
+	{
+		"ru"	"Сохранить Текущий Паттерн"
+	}
+	"SeedInstruction"
+	{
+		"ru"	"Напишите желаемый паттерн в чат. Чтобы отменить, введите !cancel."
+	}
+	"SeedSuccess"
+	{
+		"ru"	"Паттерн успешно применён."
+	}
+	"SeedCancelled"
+	{
+		"ru"	"Действие прервано."
+	}
+	"SeedFailed"
+	{
+		"ru"	"Недопустимое значение (0 - 8192)"
+	}
+	"SeedSaved"
+	{
+		"ru"	"Паттерн сохранён."
+	}
+	"SeedDisabled"
+	{
+		"ru"	"Меню паттернов в данный момент отключён."
+	}
+	"SeedExplanation"
+	{
+		"ru"	"Вы должны использовать меню !ws, чтобы установить паттерн для скинов."
+	}
+	"SeedReset"
+	{
+		"ru"	"Паттерн сброшен."
+	}
+	"ResetSeed"
+	{
+		"ru"	"Сбросить Паттерн"
+	}
+}

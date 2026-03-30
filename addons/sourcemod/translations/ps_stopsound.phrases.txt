@@ -1,0 +1,33 @@
+"Phrases"
+{  
+    "Disable"
+    {
+		"ru"    "Включить звуки"
+        "en"    "Enable sounds"
+    }
+    "1"
+    {
+		"ru"	"Выбран первый пункт"
+        "en"    "Turn on first paragraph"
+    }
+    "Stop Sound"
+    {
+		"ru"    "Выключить звуки"
+        "en"    "Disable sounds"
+    }
+    "2"
+    {
+		"ru"	"Выбран второй пункт"
+        "en"    "Turn on second paragraph"
+    }
+    "Replace to Silenced Sound"
+    {
+		"ru"	"Звуки глушителя"
+        "en"    "Replace to Silenced Sound"
+    }
+    "3"
+    {
+		"ru"	"Выбран третий пункт"
+        "en"    "Turn on three paragraph"
+    }
+}

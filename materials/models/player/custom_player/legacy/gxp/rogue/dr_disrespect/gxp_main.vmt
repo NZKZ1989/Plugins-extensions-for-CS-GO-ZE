@@ -1,0 +1,16 @@
+"VertexLitGeneric"
+{
+	"$basetexture" "models\player\custom_player\legacy\gxp\rogue\dr_disrespect\gxp_main"
+    	"$bumpmap" "models\player\custom_player\legacy\gxp\rogue\dr_disrespect\gxp_main_n"
+
+ 	"$phong" "1"
+	"$phongexponent" "50"
+	"$phongboost"	".08"
+	"$phongfresnelranges"	"[.5 .5 4]"
+
+	"$rimlight" "1"
+	"$rimlightexponent" "40"
+	"$rimlightboost" "0.4"
+}
+
+

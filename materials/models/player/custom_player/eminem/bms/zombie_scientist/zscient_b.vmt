@@ -1,0 +1,19 @@
+"VertexLitGeneric"
+{
+	"$baseTexture" "models\player\custom_player\eminem\bms\zombie_scientist/ZScient_b"
+	"$bumpmap" "models\player\custom_player\eminem\bms\zombie_scientist/ZScient_bN"
+
+	"$phong" "1"
+	"$phongboost" ".01"
+	"$phongalbedotint" "1"
+	"$phongfresnelranges" "[.02 .04 .01]"
+	"$halflambert" "1"
+
+	"$rimlight" "1"				// To enable rim lighting (requires phong)
+	"$rimlightexponent" "30"		// Exponent for phong component of rim lighting
+	"$rimlightboost" ".1"			// Boost for ambient cube component of rim lighting
+
+	$detailscale 5
+	$detailblendfactor 0.0
+	$detailblendmode 0
+}

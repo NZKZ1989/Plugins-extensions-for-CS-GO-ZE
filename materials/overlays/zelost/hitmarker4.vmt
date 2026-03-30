@@ -1,0 +1,7 @@
+"MonitorScreen"
+{
+	"$basetexture" "overlays/zelost/hitmarker4"
+	"$alphatest" 1
+	"$translucent" 1
+	"$vertexalpha" 1
+}
