@@ -13,4 +13,4 @@ My role was limited to:
 In short, this project is not a new development.  
 It is a collected package designed to help other administrators quickly set up a Zombie Escape server and avoid common issues during compilation and startup.
 
-**Note:** This is not a full Zombie Escape modification or complete  build.  
+**Note:** This is not a full modification and is not a complete build of Zombie Escape.
