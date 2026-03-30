@@ -35,7 +35,7 @@ public void OnPluginStart()
 
 MRESReturn ProcessPacketHeader_Pre(DHookReturn hReturn, DHookParam hParams) 
 {
-	Address addr = hParams.Get(1);
+	Address addr = hParams.GetAddress(1);
 	if (!addr)
 		return MRES_Ignored;
 	
