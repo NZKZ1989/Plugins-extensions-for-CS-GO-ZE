@@ -6,6 +6,7 @@
 #include <weapons>
 #undef REQUIRE_PLUGIN
 #include <updater>
+#include <clientprefs>
 
 #pragma semicolon 1
 #pragma newdecls required
@@ -21,6 +22,7 @@
 
 #define UPDATE_URL "https://raw.githubusercontent.com/kgns/weapons/master/addons/sourcemod/updatefile.txt"
 
+Cookie g_hWeaponsCookie;
 
 //#define DEBUG
 
@@ -62,7 +64,7 @@ public void OnPluginStart()
 	}
 	
 	LoadTranslations("weapons.phrases");
-	
+
 	g_Cvar_DBConnection 			= CreateConVar("sm_weapons_db_connection", 			"storage-local", 	"Database connection name in databases.cfg to use");
 	g_Cvar_TablePrefix 			= CreateConVar("sm_weapons_table_prefix", 			"", 				"Prefix for database table (example: 'xyz_')");
 	g_Cvar_ChatPrefix 			= CreateConVar("sm_weapons_chat_prefix", 			"[oyunhost.net]", 	"Prefix for chat messages");
@@ -87,6 +89,9 @@ public void OnPluginStart()
 	RegConsoleCmd("sm_wslang", CommandWSLang);
 	RegConsoleCmd("sm_seed", CommandSeedMenu);
 	RegAdminCmd("sm_wsreset", CommandResetWeaponSkins, ADMFLAG_ROOT, "Resets weapon skins and knife of a specific player.");
+	
+	g_hWeaponsCookie = new Cookie("sm_weapons", "Weapons & Knives Settings", CookieAccess_Protected);
+    SetCookieMenuItem(PrefMenuWeapons, 0, "Weapons & Knives");
 	
 	PTaH(PTaH_GiveNamedItemPre, Hook, GiveNamedItemPre);
 	PTaH(PTaH_GiveNamedItemPost, Hook, GiveNamedItemPost);
@@ -128,6 +133,21 @@ public void OnLibraryAdded(const char[] name)
 	{
 		Updater_AddPlugin(UPDATE_URL);
 	}
+}
+
+public void PrefMenuWeapons(int client, CookieMenuAction actions, any info, char[] buffer, int maxlen)
+{
+    if (actions == CookieMenuAction_DisplayOption)
+    {
+        Format(buffer, maxlen, "%T", "WSMenuTitle", client);
+    }
+    else if (actions == CookieMenuAction_SelectOption)
+    {
+        char value[4];
+        g_hWeaponsCookie.Get(client, value, sizeof(value));
+
+        CommandWeaponSkins(client, 0);
+    }
 }
 
 #if defined DEBUG
