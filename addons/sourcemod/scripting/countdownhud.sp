@@ -34,7 +34,6 @@ public void OnPluginStart()
 
     DeleteTimer();
 
-    // создаём отдельный HUD‑синхронизатор для таймера плагина
     g_hHudSyncCountdown = CreateHudSynchronizer();
 
     g_cVHudPosition = CreateConVar("sm_cdhud_position", "-1.0 0.125", "The X and Y position for the hud.");
@@ -141,7 +140,6 @@ Action Chat(int client, const char[] command, int argc)
 
     GetCmdArgString(ConsoleChat, sizeof(ConsoleChat));
 
-    // фильтрация текста
     for (int i = 0; i < sizeof(ConsoleChat); i++) 
     {
         if (IsCharAlpha(ConsoleChat[i]) || IsCharNumeric(ConsoleChat[i]) || IsCharSpace(ConsoleChat[i])) 
@@ -160,7 +158,6 @@ Action Chat(int client, const char[] command, int argc)
 
         if(val > 0)
         {
-            // проверка единиц времени
             if(i + 1 < words)
             {
                 if(StrEqual(ChatArray[i + 1], "s", false) ||
@@ -168,7 +165,7 @@ Action Chat(int client, const char[] command, int argc)
                    StrEqual(ChatArray[i + 1], "second", false) ||
                    StrEqual(ChatArray[i + 1], "seconds", false))
                 {
-                    consoleNumber = val; // секунды как есть
+                    consoleNumber = val;
                     isCountable = true;
                 }
                 else if(StrEqual(ChatArray[i + 1], "min", false) ||
@@ -176,11 +173,10 @@ Action Chat(int client, const char[] command, int argc)
                         StrEqual(ChatArray[i + 1], "minute", false) ||
                         StrEqual(ChatArray[i + 1], "minutes", false))
                 {
-                    consoleNumber = val * 60; // минуты переводим в секунды
+                    consoleNumber = val * 60;
                     isCountable = true;
                 }
             }
-            // проверка ключевых слов
             if(!isCountable && HasKeyword(FilterText))
             {
                 consoleNumber = val;
@@ -188,7 +184,6 @@ Action Chat(int client, const char[] command, int argc)
             }
         }
 
-        // 🔽 дополнительная проверка формата "10s"
         if(!isCountable)
         {
             char word[MAXLENGTH_INPUT];
@@ -197,7 +192,7 @@ Action Chat(int client, const char[] command, int argc)
 
             if(len > 1 && IsCharNumeric(word[0]) && (word[len-1] == 's' || word[len-1] == 'S'))
             {
-                word[len-1] = '\0'; // убираем 's'
+                word[len-1] = '\0';
                 consoleNumber = StringToInt(word);
                 if(consoleNumber > 0)
                 {
