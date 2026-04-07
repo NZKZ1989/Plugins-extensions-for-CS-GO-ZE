@@ -3,6 +3,7 @@
 #include <sourcemod>
 #include <sdktools>
 #include <cstrike>
+#include <clientprefs>
 
 #undef REQUIRE_PLUGIN
 #tryinclude <zombiereloaded>
@@ -15,6 +16,8 @@ bool g_bZRLoaded;
 Handle g_hFwd_SpectateByCommand;
 
 bool g_bRoundEnd;
+
+Cookie g_hSpectateCookie;
 
 public Plugin myinfo =
 {
@@ -55,6 +58,23 @@ public void OnPluginStart()
 
 	HookEvent("round_start", OnRoundStart, EventHookMode_Post);
 	HookEvent("round_end", OnRoundEnd, EventHookMode_Pre);
+	g_hSpectateCookie = new Cookie("sm_spectate", "Spectate Settings", CookieAccess_Protected);
+    SetCookieMenuItem(PrefMenuSpectate, 0, "Spectate");
+}
+
+public void PrefMenuSpectate(int client, CookieMenuAction actions, any info, char[] buffer, int maxlen)
+{
+    if (actions == CookieMenuAction_DisplayOption)
+    {
+        FormatEx(buffer, maxlen, "Spectate");
+    }
+    else if (actions == CookieMenuAction_SelectOption)
+    {
+        char value[4];
+        g_hSpectateCookie.Get(client, value, sizeof(value));
+
+        Command_Spectate(client, 0);
+    }
 }
 
 public void OnAllPluginsLoaded()
