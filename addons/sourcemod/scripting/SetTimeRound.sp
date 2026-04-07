@@ -6,7 +6,6 @@ ConVar g_hRoundTime;
 public void OnPluginStart()
 {
     g_hRoundTime = FindConVar("mp_roundtime");
-
     HookEvent("round_start", Event_RoundStart, EventHookMode_PostNoCopy);
 }
 
@@ -22,11 +21,11 @@ Action Timer_SetRoundTime(Handle timer)
 
     if (StrContains(map, "ze_", false) != -1)
     {
-        g_hRoundTime.SetInt(30);
+        g_hRoundTime.SetInt(30); // 30 минут
     }
     else if (StrContains(map, "zm_", false) != -1)
     {
-        g_hRoundTime.SetInt(5);
+        g_hRoundTime.SetInt(5); // 5 минут
     }
 
     return Plugin_Continue;
