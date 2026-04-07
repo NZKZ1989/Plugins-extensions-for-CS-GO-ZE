@@ -47,11 +47,28 @@ public void OnPluginStart()
         if (AreClientCookiesCached(i)) OnClientCookiesCached(i);
         else g_color[i] = 0;
     }
+	
+    SetCookieMenuItem(PrefMenuColors, 0, "Colors");
 
     AutoExecConfig();
 
     HookEvent("player_spawn", OnPlayerSpawn, EventHookMode_Post);
     HookEvent("player_hurt", OnPlayerHurt, EventHookMode_Post);
+}
+
+public void PrefMenuColors(int client, CookieMenuAction actions, any info, char[] buffer, int maxlen)
+{
+    if (actions == CookieMenuAction_DisplayOption)
+    {
+        Format(buffer, maxlen, "%T", "Colors", client);
+    }
+    else if (actions == CookieMenuAction_SelectOption)
+    {
+        char value[12];
+        GetClientCookie(client, c_color, value, sizeof(value));
+
+        Colores(client, 0);
+    }
 }
 
 public void OnPlayerSpawn(Event event, const char[] name, bool dontBroadcast)
