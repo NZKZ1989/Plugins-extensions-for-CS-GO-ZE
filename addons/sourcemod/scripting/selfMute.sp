@@ -3,6 +3,8 @@
 #include <sourcemod>
 #include <sdktools>
 #include <adminmenu>
+#include <clientprefs>
+Cookie g_hSelfMuteCookie;
 
 #define PLUGIN_VERSION "3.0"
 
@@ -31,9 +33,70 @@ public void OnPluginStart()
 	RegConsoleCmd("sm_selfunmute", selfUnmute, "Unmute player by typing !selfunmute [playername]");
 	RegConsoleCmd("sm_cm", checkmute, "Check who you have self-muted");
 	RegConsoleCmd("sm_checkmute", checkmute, "Check who you have self-muted");
+	RegConsoleCmd("sm_selfmute", CommandSelfMuteMenu, "Open Self-Mute main menu");
+	g_hSelfMuteCookie = new Cookie("sm_selfmute", "Self-Mute Settings", CookieAccess_Protected);
+    SetCookieMenuItem(PrefMenuSelfMute, 0, "Self-Mute");
 }
 
 //====================================================================================================
+
+public void PrefMenuSelfMute(int client, CookieMenuAction actions, any info, char[] buffer, int maxlen)
+{
+    if (actions == CookieMenuAction_DisplayOption)
+    {
+        FormatEx(buffer, maxlen, "Self-Mute");
+    }
+    else if (actions == CookieMenuAction_SelectOption)
+    {
+        char value[4];
+        g_hSelfMuteCookie.Get(client, value, sizeof(value));
+
+        DisplaySelfMuteMainMenu(client);
+    }
+}
+
+void DisplaySelfMuteMainMenu(int client)
+{
+    Menu menu = CreateMenu(SelfMuteMainMenuHandler);
+    SetMenuTitle(menu, "Self-Mute Menu");
+    SetMenuExitBackButton(menu, true);
+
+    menu.AddItem("mute", "Mute Player");
+    menu.AddItem("unmute", "Unmute Player");
+    menu.AddItem("check", "Check Muted List");
+
+    DisplayMenu(menu, client, MENU_TIME_FOREVER);
+}
+
+int SelfMuteMainMenuHandler(Menu menu, MenuAction action, int client, int param2)
+{
+    switch (action)
+    {
+        case MenuAction_End:
+        {
+            delete menu;
+        }
+        case MenuAction_Select:
+        {
+            char info[32];
+            menu.GetItem(param2, info, sizeof(info));
+
+            if (StrEqual(info, "mute"))
+            {
+                DisplayMuteMenu(client);
+            }
+            else if (StrEqual(info, "unmute"))
+            {
+                DisplayUnMuteMenu(client);
+            }
+            else if (StrEqual(info, "check"))
+            {
+                checkmute(client, 0);
+            }
+        }
+    }
+    return 0;
+}
 
 public void OnClientAuthorized(int client, const char[] auth)
 {
@@ -105,6 +168,12 @@ Action selfMute(int client, int args)
 		}
 	}
 	return Plugin_Handled;
+}
+
+Action CommandSelfMuteMenu(int client, int args)
+{
+    DisplaySelfMuteMainMenu(client);
+    return Plugin_Handled;
 }
 
 void DisplayMuteMenu(int client)
