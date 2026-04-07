@@ -12,115 +12,139 @@ ConVar g_HE_Enable;
 
 public Plugin myinfo =
 {
-	name = "[ZR] Force Teams",
-	author = "Franc1sco franug, simpson0141, Modified by. Someone",
-	description = "",
-	version = "2.5",
-	url = "http://steamcommunity.com/id/franug"
+    name = "[ZR] Force Teams",
+    author = "Franc1sco franug, simpson0141, Modified by Someone",
+    description = "Перевод всех игроков в CT и выдача оружия",
+    version = "2.6",
+    url = "http://steamcommunity.com/id/franug"
 };
 
 public void OnPluginStart() 
 {
-	g_HE_Enable = CreateConVar("HE_Enable", "1");
-	g_HE_Amount = CreateConVar("HE_Amount", "3");
+    g_HE_Enable = CreateConVar("HE_Enable", "1", "Включить выдачу гранат");
+    g_HE_Amount = CreateConVar("HE_Amount", "3", "Количество гранат HE");
 
-	HookEvent("player_spawn", EventPlayerSpawn);
-	HookEvent("round_start", EventRoundStart, EventHookMode_Pre);
-	HookEvent("round_end", EventRoundEnd, EventHookMode_Pre);
-	
-	AutoExecConfig();
+    HookEvent("player_spawn", EventPlayerSpawn);
+    HookEvent("round_prestart", EventRoundStart, EventHookMode_Pre);
+    HookEvent("round_end", EventRoundEnd, EventHookMode_Pre);
+    
+    AutoExecConfig();
 }
 
 public Action EventPlayerSpawn(Handle event, const char[] name, bool dontBroadcast) 
 {
-	int client = GetClientOfUserId(GetEventInt(event, "userid"));
-	
-	CreateTimer(1.0, GiveWeapons, client);
-	
-	if(GameRules_GetProp("m_bWarmupPeriod") == 1)
-		return Plugin_Continue;
-	
-	if(!started)
-		if(GetClientTeam(client) == CS_TEAM_T)
-			CS_SwitchTeam(client, CS_TEAM_CT);
-	
-	return Plugin_Continue;
+    int client = GetClientOfUserId(GetEventInt(event, "userid"));
+    if (client <= 0 || !IsClientInGame(client)) 
+        return Plugin_Continue;
+
+    CreateTimer(1.0, GiveWeapons, client);
+
+    if (GameRules_GetProp("m_bWarmupPeriod") == 1)
+        return Plugin_Continue;
+
+    if (!started && GetClientTeam(client) == CS_TEAM_T)
+    {
+        CS_SwitchTeam(client, CS_TEAM_CT);
+    }
+
+    return Plugin_Continue;
 }
 
 public Action GiveWeapons(Handle timer, any client)
 {
-	if(!IsClientInGame(client)) return;
-	if(!IsPlayerAlive(client)) return;
+    if (!IsClientInGame(client)) return Plugin_Stop;
+    if (!IsPlayerAlive(client)) return Plugin_Stop;
 
-	int knife = GetPlayerWeaponSlot(client, 2);
-	int pistol = GetPlayerWeaponSlot(client, 1);
-	int rifle = GetPlayerWeaponSlot(client, 0);
-	
-	if(!IsValidEdict(knife))
-		FakeClientCommand(client, "use %d", GivePlayerItem(client, "weapon_knife"));
-		
-	if(ZR_IsClientHuman(client))
-	{
-		if(g_HE_Enable.BoolValue)
-			GiveGrenade(client, g_HE_Amount.IntValue);
-				
-		if(!IsValidEdict(pistol))
-			FakeClientCommand(client, "use %d", GivePlayerItem(client, "weapon_elite"));
-			
-		if(!IsValidEdict(rifle))
-			FakeClientCommand(client, "use %d", GivePlayerItem(client, "weapon_bizon"));
-	}
-	else return;
+    int knife = GetPlayerWeaponSlot(client, 2);
+    int pistol = GetPlayerWeaponSlot(client, 1);
+    int rifle = GetPlayerWeaponSlot(client, 0);
+
+    if (!IsValidEdict(knife))
+    {
+        int ent = GivePlayerItem(client, "weapon_knife");
+        if (ent != -1 && IsValidEdict(ent))
+            FakeClientCommand(client, "use %d", ent);
+    }
+
+    if (ZR_IsClientHuman(client))
+    {
+        if (g_HE_Enable.BoolValue)
+            GiveGrenade(client, g_HE_Amount.IntValue);
+
+        if (!IsValidEdict(pistol))
+        {
+            int ent = GivePlayerItem(client, "weapon_elite");
+            if (ent != -1 && IsValidEdict(ent))
+                FakeClientCommand(client, "use %d", ent);
+        }
+
+        if (!IsValidEdict(rifle))
+        {
+            int ent = GivePlayerItem(client, "weapon_bizon");
+            if (ent != -1 && IsValidEdict(ent))
+                FakeClientCommand(client, "use %d", ent);
+        }
+    }
+    return Plugin_Continue;
 }
 
 public Action EventRoundStart(Handle event, const char[] name, bool dontBroadcast) 
 {
-	started = false;
+    started = false;
 
-	if(GameRules_GetProp("m_bWarmupPeriod") == 1)
-		return Plugin_Continue;
-	
-	if(GetClientCount() > 1)
-		ServerCommand("mp_ignore_round_win_conditions 1");
-	
-	return Plugin_Continue;
+    if (GameRules_GetProp("m_bWarmupPeriod") == 1)
+        return Plugin_Continue;
+
+    if (GetClientCount() > 1)
+        ServerCommand("mp_ignore_round_win_conditions 1");
+
+    return Plugin_Continue;
 }
 
 public Action EventRoundEnd(Handle event, const char[] name, bool dontBroadcast) 
 {
-	started = false;
+    started = false;
+    return Plugin_Continue;
 }
 
-public int ZR_OnClientInfected(int client, int attacker, bool motherInfect, bool respawnOverride, bool respawn)
+public void ZR_OnClientInfected(int client, int attacker, bool motherInfect, bool respawnOverride, bool respawn)
 {
-	if(!started)
-	{
-		ServerCommand("mp_ignore_round_win_conditions 0");
-		
-		started = true;
-	}
-	CreateTimer(1.0, GiveKnife, client);
+    if (!started)
+    {
+        ServerCommand("mp_ignore_round_win_conditions 0");
+        started = true;
+    }
+    CreateTimer(1.0, GiveKnife, client);
 }
 
 public Action GiveKnife(Handle timer, any client)
 {
-	if(!IsClientInGame(client)) return;
-	if(!IsPlayerAlive(client)) return;
-	
-	int knife = GetPlayerWeaponSlot(client, 2);
-	
-	if(!IsValidEdict(knife))
-		FakeClientCommand(client, "use %d", GivePlayerItem(client, "weapon_knife"));
-	else return;
+    if (!IsClientInGame(client)) return Plugin_Stop;
+    if (!IsPlayerAlive(client)) return Plugin_Stop;
+
+    int knife = GetPlayerWeaponSlot(client, 2);
+
+    if (!IsValidEdict(knife))
+    {
+        int ent = GivePlayerItem(client, "weapon_knife");
+        if (ent != -1 && IsValidEdict(ent))
+            FakeClientCommand(client, "use %d", ent);
+    }
+
+    return Plugin_Continue;
 }
 
-public void GiveGrenade(client, amount)
+public void GiveGrenade(int client, int amount)
 {
-	int offset2 = FindDataMapInfo(client, "m_iAmmo")+(4*14);
-	int current2 = GetEntData(client, offset2,4);
-	
-	if (current2 == 0)
-		GivePlayerItem(client, "weapon_hegrenade");
-	
-	SetEntData(client, offset2, amount);
+    int offset2 = FindDataMapInfo(client, "m_iAmmo") + (4 * 14);
+    int current2 = GetEntData(client, offset2, 4);
+
+    if (current2 == 0)
+    {
+        int ent = GivePlayerItem(client, "weapon_hegrenade");
+        if (ent != -1 && IsValidEdict(ent))
+            FakeClientCommand(client, "use %d", ent);
+    }
+
+    SetEntData(client, offset2, amount);
 }
