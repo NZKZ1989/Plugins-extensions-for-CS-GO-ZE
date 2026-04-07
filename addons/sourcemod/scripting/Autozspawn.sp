@@ -4,7 +4,7 @@
 #include <sourcemod>
 #include <sdktools>
 
-public Plugin myinfo =
+public Plugin myinfo =d
 {
     name        = "Auto ZSpawn (Improved)",
     author      = "Franc1sco franug, NZ",
