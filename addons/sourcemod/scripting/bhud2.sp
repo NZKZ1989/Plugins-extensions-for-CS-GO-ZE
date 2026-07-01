@@ -74,13 +74,36 @@ public void OnPluginStart()
 
 	EntityMaxes = CreateTrie();
 	ClearTrie(EntityMaxes);
+	SetCookieMenuItem(PrefMenuBossHud, 0, "Boss HUD");
+}
+
+public void PrefMenuBossHud(int client, CookieMenuAction actions, any info, char[] buffer, int maxlen)
+{
+    if (actions == CookieMenuAction_DisplayOption)
+    {
+        FormatEx(buffer, maxlen, "Boss HUD");
+    }
+    else if (actions == CookieMenuAction_SelectOption)
+    {
+        Command_BHud(client, 0);
+    }
 }
 
 public void Event_OnRoundStart(Handle event, const char[] name, bool dontBroadcast) 
 { 
-	EntityMaxes = CreateTrie();
-	ClearTrie(EntityMaxes); 
-}  
+    EntityMaxes = CreateTrie();
+    ClearTrie(EntityMaxes); 
+
+    for (int i = 1; i <= MaxClients; i++)
+    {
+        g_iTimer[i] = 0;
+        entityID[i] = -1;
+    }
+
+    if (HudSync != INVALID_HANDLE)
+        CloseHandle(HudSync);
+    HudSync = CreateHudSynchronizer();
+}
 
 public void OnClientConnected(int client)
 {
@@ -141,14 +164,14 @@ public void OnClientCookiesCached(int client)
     char sValue[8];
     GetClientCookie(client, BossHud_Cookie, sValue, sizeof(sValue));
 
-    if (sValue[0] == '\0') // если cookie пустое (игрок впервые зашёл)
+    if (sValue[0] == '\0')
     {
-        g_bStatus[client] = true; // включаем HUD по умолчанию
-        SetClientCookie(client, BossHud_Cookie, "1"); // сохраняем состояние
+        g_bStatus[client] = true;
+        SetClientCookie(client, BossHud_Cookie, "1");
     }
     else
     {
-        g_bStatus[client] = StringToInt(sValue) != 0; // читаем сохранённое значение
+        g_bStatus[client] = StringToInt(sValue) != 0;
     }
 }
 
@@ -254,47 +277,87 @@ public void OnDamageCounter(const char[] output, int caller, int activator, floa
 
 public Action OnTakeDamage(int entity, int &attacker, int &inflictor, float &damage, int &damagetype, int &weapon, float damageForce[3], float damagePosition[3])
 {
-	if(PrintCounter != INVALID_HANDLE)
-	{
-		char szString[128];
-		ResetPack(PrintCounter);
-		int caller = ReadPackCell(PrintCounter);
-		int activator = ReadPackCell(PrintCounter);
-		ReadPackString(PrintCounter, szString, sizeof(szString));
-		CloseHandle(PrintCounter);
-		PrintCounter = INVALID_HANDLE;
-		
-		if(!IsValidEntity(caller) || !IsValidClient(attacker))
-			return Plugin_Continue;
-		
-		SendHudMsg(activator, szString);
-		
-		g_iTimer[activator] = GetTime();
-		
-		entityID[activator] = caller;
-	}
-	
-	if(PrintBreakable != INVALID_HANDLE)
-	{
-		char szString[128];
-		ResetPack(PrintBreakable);
-		int caller = ReadPackCell(PrintBreakable);
-		int activator = ReadPackCell(PrintBreakable);
-		ReadPackString(PrintBreakable, szString, sizeof(szString));
-		CloseHandle(PrintBreakable);
-		PrintBreakable = INVALID_HANDLE;
-		
-		if(!IsValidEntity(caller) || !IsValidClient(attacker))
-			return Plugin_Continue;
-		
-		SendHudMsg(activator, szString);
-		
-		g_iTimer[activator] = GetTime();
-		
-		entityID[activator] = caller;
-	}
-	
-	return Plugin_Continue;
+    if (PrintCounter != INVALID_HANDLE)
+    {
+        char szString[128];
+        ResetPack(PrintCounter);
+        int caller = ReadPackCell(PrintCounter);
+        int activator = ReadPackCell(PrintCounter);
+        ReadPackString(PrintCounter, szString, sizeof(szString));
+        CloseHandle(PrintCounter);
+        PrintCounter = INVALID_HANDLE;
+
+        if (!IsValidEntity(caller) || !IsValidClient(activator))
+            return Plugin_Continue;
+
+        SendHudMsg(activator, szString);
+        g_iTimer[activator] = GetTime();
+        entityID[activator] = caller;
+    }
+
+    if (PrintBreakable != INVALID_HANDLE)
+    {
+        char szString[128];
+        ResetPack(PrintBreakable);
+        int caller = ReadPackCell(PrintBreakable);
+        int activator = ReadPackCell(PrintBreakable);
+        ReadPackString(PrintBreakable, szString, sizeof(szString));
+        CloseHandle(PrintBreakable);
+        PrintBreakable = INVALID_HANDLE;
+
+        if (!IsValidEntity(caller) || !IsValidClient(activator))
+            return Plugin_Continue;
+
+        SendHudMsg(activator, szString);
+        g_iTimer[activator] = GetTime();
+        entityID[activator] = caller;
+    }
+
+    if (IsValidClient(attacker) && weapon != -1)
+    {
+        if (IsValidClient(entity))
+            return Plugin_Continue;
+
+        char classname[64];
+        GetEntityClassname(entity, classname, sizeof(classname));
+        if (!(StrEqual(classname, "func_breakable", false) ||
+              StrEqual(classname, "func_physbox", false) ||
+              StrEqual(classname, "func_physbox_multiplayer", false) ||
+              StrEqual(classname, "math_counter", false) ||
+              StrEqual(classname, "prop_physics", false) ||
+              StrEqual(classname, "prop_physics_multiplayer", false) ||
+              StrEqual(classname, "prop_dynamic", false) ||
+              StrEqual(classname, "prop_ragdoll", false)))
+        {
+            return Plugin_Continue;
+        }
+
+        char wname[64];
+        GetEdictClassname(weapon, wname, sizeof(wname));
+        if (StrEqual(wname, "weapon_knife", false))
+        {
+            int health = GetEntProp(entity, Prop_Data, "m_iHealth");
+            if (health > 0 && health <= 900000)
+            {
+                char szString[128];
+                char szName[64];
+                GetEntPropString(entity, Prop_Data, "m_iName", szName, sizeof(szName));
+                if (strlen(szName) == 0)
+                    Format(szName, sizeof(szName), "Health");
+
+                if (HudSymbols)
+                    Format(szString, sizeof(szString), ">> %s: %i HP <<", szName, health);
+                else
+                    Format(szString, sizeof(szString), "%s: %i HP", szName, health);
+
+                SendHudMsg(attacker, szString);
+                g_iTimer[attacker] = GetTime();
+                entityID[attacker] = entity;
+            }
+        }
+    }
+
+    return Plugin_Continue;
 }
 
 public void OnEntityCreated(int entity, const char[] classname)
@@ -478,7 +541,7 @@ public Action UpdateHUD(Handle timer, any client)
         }
     }
 
-    return Plugin_Continue; // <-- добавлено
+    return Plugin_Continue;
 }
 
 public bool IsPlayerGenericAdmin(int client) 
