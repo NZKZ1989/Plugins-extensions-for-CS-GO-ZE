@@ -6,7 +6,9 @@
 bool g_bShowName[MAXPLAYERS+1];
 bool g_bShowDamage[MAXPLAYERS + 1];
 bool g_bShowHM[MAXPLAYERS + 1];
+bool g_bMarkerActive[MAXPLAYERS+1];
 
+float g_fLastHit[MAXPLAYERS+1];
 float g_fWait[MAXPLAYERS + 1];
 
 Handle ShowDamage_Cookie = INVALID_HANDLE;
@@ -39,7 +41,8 @@ public void OnPluginStart()
     RegConsoleCmd("sm_sn", ShowNamesMenu);
     RegConsoleCmd("sm_showdamage", ShowNamesMenu);
     RegConsoleCmd("sm_sd", ShowNamesMenu);
-
+	
+    CreateTimer(0.05, Timer_HitMarker, _, TIMER_REPEAT);
     CreateTimer(0.2, ShowNameHud, _, TIMER_REPEAT);
     hudSync = CreateHudSynchronizer();
     
@@ -52,6 +55,9 @@ public void OnPluginStart()
         }
     }
     HookEvent("player_hurt", evntPlayerHurt);
+	HookEntityOutput("func_physbox", "OnHealthChanged", Event_EntityDamage);
+    HookEntityOutput("func_physbox_multiplayer", "OnHealthChanged", Event_EntityDamage);
+    HookEntityOutput("func_breakable", "OnHealthChanged", Event_EntityDamage);
 }
 
 public void OnPluginEnd()
@@ -67,12 +73,44 @@ public void OnClientDisconnect(int client)
     g_bShowName[client] = false;
     g_bShowDamage[client] = false;
     g_bShowHM[client] = false;
+    g_bMarkerActive[client] = false;
+    g_fLastHit[client] = 0.0;
+}
+
+public void OnClientPutInServer(int client)
+{
+    g_fLastHit[client] = 0.0;
+    g_bMarkerActive[client] = false;
 }
 
 public void hitMarker(int client)
 {
-    SetHudTextParams(-1.0, -1.0, 0.5, 255, 0, 0, 255, 1, 0.2, 0.0, 0.2);
+    // короткая вспышка маркера
+    SetHudTextParams(-1.0, -1.0, 0.10, 255, 0, 0, 255, 1, 0.0, 0.0, 0.0);
     ShowSyncHudText(client, hudSync, "∷");
+}
+
+public Action Timer_HitMarker(Handle timer, any data)
+{
+    float now = GetGameTime();
+
+    for (int client = 1; client <= MaxClients; client++)
+    {
+        if (!IsClientInGame(client) || !IsPlayerAlive(client) || !g_bShowHM[client])
+            continue;
+
+        if (g_bMarkerActive[client] && (now - g_fLastHit[client]) < 0.10)
+        {
+            hitMarker(client);
+        }
+        else if (g_bMarkerActive[client])
+        {
+            g_bMarkerActive[client] = false;
+            ClearSyncHud(client, hudSync);
+        }
+    }
+
+    return Plugin_Continue;
 }
 
 public void OnClientCookiesCached(int client)
@@ -166,7 +204,7 @@ stock int TraceClientViewEntity(int client)
 
 public bool TraceFilter(int entity, int mask, any data)
 {
-    return (entity != data && 1 <= entity <= MaxClients); 
+    return (entity != data && entity >= 1 && entity <= MaxClients);
 }
 
 public Action ShowNameHud(Handle timer, int data)
@@ -190,26 +228,65 @@ public Action ShowNameHud(Handle timer, int data)
 public Action evntPlayerHurt(Event event, const char[] name, bool dontBroadcast)
 {
     int client = GetClientOfUserId(event.GetInt("attacker"));
-    if(!g_bShowDamage[client] && !g_bShowHM[client])
+
+    // Проверяем атакующего
+    if (client <= 0 || client > MaxClients)
         return Plugin_Continue;
 
-    if(client == 0 || !IsClientInGame(client) || IsVoteInProgress())
+    if (!IsClientInGame(client))
+        return Plugin_Continue;
+
+    if (IsVoteInProgress())
+        return Plugin_Continue;
+
+    if (!g_bShowDamage[client] && !g_bShowHM[client])
         return Plugin_Continue;
 
     int iVictim = GetClientOfUserId(event.GetInt("userid"));
-    if(client == iVictim)
+
+    // Проверяем жертву
+    if (iVictim <= 0 || iVictim > MaxClients)
+        return Plugin_Continue;
+
+    if (!IsClientInGame(iVictim))
+        return Plugin_Continue;
+
+    if (client == iVictim)
         return Plugin_Continue;
 
     int iHealth = GetClientHealth(iVictim);
     int iDamage = event.GetInt("dmg_health");
 
-    if(g_bShowDamage[client])
+    if (g_bShowDamage[client])
     {
-        PrintHintText(client, (GetClientTeam(iVictim) == 2 ? damageFormatT : damageFormatCT), iDamage, iVictim, iHealth);
+        PrintHintText(
+            client,
+            (GetClientTeam(iVictim) == 2) ? damageFormatT : damageFormatCT,
+            iDamage,
+            iVictim,
+            iHealth
+        );
+
         g_fWait[client] = GetGameTime() + 0.7;
     }
-    if(g_bShowHM[client])
-        hitMarker(client);
+
+    if (g_bShowHM[client])
+    {
+        g_bMarkerActive[client] = true;
+        g_fLastHit[client] = GetGameTime();
+    }
 
     return Plugin_Continue;
+}
+
+public void Event_EntityDamage(const char[] output, int caller, int activator, float delay)
+{
+    if (activator <= 0 || activator > MaxClients)
+        return;
+
+    if (!IsClientInGame(activator) || !g_bShowHM[activator])
+        return;
+
+    g_bMarkerActive[activator] = true;
+    g_fLastHit[activator] = GetGameTime();
 }
