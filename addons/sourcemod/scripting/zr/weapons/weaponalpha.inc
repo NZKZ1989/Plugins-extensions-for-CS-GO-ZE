@@ -144,34 +144,39 @@ void WeaponAlphaApplyWeaponAlpha(int entity, int alpha)
 {
     if (entity > MaxClients)
     {
-        // Turn rendermode on, on the weapon.
-        SetEntityRenderMode(entity, RENDER_TRANSALPHA);
-        
-        // Set alpha value on the weapon.
-        SetEntityRenderColor(entity, _, _, _, alpha);
-        
-        // Entity alpha has been set, so stop.
+        // Проверяем, есть ли у сущности свойство m_nRenderMode
+        if (HasEntProp(entity, Prop_Send, "m_nRenderMode"))
+        {
+            SetEntityRenderMode(entity, RENDER_TRANSALPHA);
+        }
+
+        // Проверяем, есть ли у сущности цвет рендера
+        if (HasEntProp(entity, Prop_Send, "m_clrRender"))
+        {
+            SetEntityRenderColor(entity, _, _, _, alpha);
+        }
+
         return;
     }
-    
-    // Get client's list of weapons.
+
     int weapons[MAX_SLOTWEAPON];
     WeaponsGetClientWeapons(entity, weapons);
-    
-    // Loop through array slots and set alpha.
-    // x = weapon slot.
+
     for (int x = 0; x < WEAPONS_SLOTS_MAX; x++)
     {
-        // If weapon is invalid, then stop.
         if (weapons[x] == -1)
         {
             continue;
         }
-        
-        // Turn rendermode on, on the weapon.
-        SetEntityRenderMode(weapons[x], RENDER_TRANSALPHA);
-        
-        // Set alpha value on the weapon.
-        SetEntityRenderColor(weapons[x], _, _, _, alpha);
+
+        if (HasEntProp(weapons[x], Prop_Send, "m_nRenderMode"))
+        {
+            SetEntityRenderMode(weapons[x], RENDER_TRANSALPHA);
+        }
+
+        if (HasEntProp(weapons[x], Prop_Send, "m_clrRender"))
+        {
+            SetEntityRenderColor(weapons[x], _, _, _, alpha);
+        }
     }
 }
