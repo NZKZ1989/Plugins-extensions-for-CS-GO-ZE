@@ -85,7 +85,7 @@ public void Event_RoundEnd(Event hEvent, const char[] sEvName, bool bDontBroadca
 
 public int SortByDamage(int elem1, int elem2, const int[] array, Handle hndl)
 {
-    return g_iDamage[elem2] - g_iDamage[elem1]; // сортировка по убыванию
+    return g_iDamage[elem2] - g_iDamage[elem1];
 }
 
 public void Event_PlayerHurt(Event hEvent, const char[] sEvName, bool bDontBroadcast)
