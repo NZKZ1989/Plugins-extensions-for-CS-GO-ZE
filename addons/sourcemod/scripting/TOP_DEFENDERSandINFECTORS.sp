@@ -1,56 +1,56 @@
 #pragma semicolon 1
 #pragma newdecls required
 
-#include <cstrike>
 #include <sourcemod>
 #include <sdktools>
-#include <zombiereloaded>
 
 public Plugin myinfo =
 {
     name = "[CS:GO] TOP DEFENDERS and INFECTORS",
     author = "NZ",
-    version = "2.1"
+    version = "1.0"
 };
 
-int g_iDamage[MAXPLAYERS+1];
-int g_iInfect[MAXPLAYERS+1];
-int g_iTopDefenders[3];
+int g_iTopDmg[MAXPLAYERS+1][2];
+int g_iTopInfect[MAXPLAYERS+1][2];
 int g_iTopMax = 3;
+
+int g_iTopDefenders[3];
 
 public void OnPluginStart()
 {
     HookEvent("round_start", Event_RoundStart, EventHookMode_PostNoCopy);
     HookEvent("round_end", Event_RoundEnd, EventHookMode_PostNoCopy);
     HookEvent("player_hurt", Event_PlayerHurt);
+    HookEvent("player_death", Event_PlayerDeath);
 }
 
 public void OnMapStart()
 {
-    ResetStats();
+    for (int k = 0; k < 3; k++)
+    {
+        g_iTopDefenders[k] = -1;
+    }
+    OSTopClear();
 }
 
-void ResetStats()
+void OSTopClear()
 {
-    for (int i = 1; i <= MaxClients; i++)
-    {
-        g_iDamage[i] = 0;
-        g_iInfect[i] = 0;
+    for(int i = 1; i <= MaxClients; ++i) {
+        g_iTopDmg[i][0] = g_iTopInfect[i][0] = 0;
+        g_iTopDmg[i][1] = g_iTopInfect[i][1] = 0;
     }
-    for (int k = 0; k < g_iTopMax; k++)
-        g_iTopDefenders[k] = -1;
 }
 
 public void Event_RoundStart(Event hEvent, const char[] sEvName, bool bDontBroadcast)
 {
-    ResetStats();
+    OSTopClear();
 
-    for (int k = 0; k < g_iTopMax; k++)
+    for (int k = 0; k < 3; k++)
     {
-        int client = g_iTopDefenders[k];
-        if (client > 0 && IsClientInGame(client) && IsPlayerAlive(client))
+        if (g_iTopDefenders[k] > 0 && IsClientInGame(g_iTopDefenders[k]))
         {
-            CreateTimer(5.0, Timer_GiveExtraHE, client, TIMER_FLAG_NO_MAPCHANGE);
+            CreateTimer(5.0, Timer_GiveExtraHE, g_iTopDefenders[k], TIMER_FLAG_NO_MAPCHANGE);
         }
     }
 }
@@ -59,100 +59,130 @@ public Action Timer_GiveExtraHE(Handle timer, any client)
 {
     if(IsClientInGame(client) && IsPlayerAlive(client))
     {
-        GivePlayerItem(client, "weapon_hegrenade");
+        int ammoOffset = FindSendPropInfo("CCSPlayer", "m_iAmmo");
+        int currentAmmo = GetEntData(client, ammoOffset + (14 * 4));
+        SetEntData(client, ammoOffset + (14 * 4), currentAmmo + 1, 4, true);
     }
     return Plugin_Stop;
 }
 
 public void Event_RoundEnd(Event hEvent, const char[] sEvName, bool bDontBroadcast)
 {
-    ShowTopStats();
+    OSTopShow();
 
-    int sorted[MAXPLAYERS+1];
-    int count = 0;
+    for (int k = 0; k < 3; k++)
+        g_iTopDefenders[k] = -1;
 
-    for (int i = 1; i <= MaxClients; i++)
+    int idx = 0;
+    for (int i = MaxClients; i > MaxClients - g_iTopMax && idx < 3; --i)
     {
-        if (IsClientInGame(i) && g_iDamage[i] > 0)
-            sorted[count++] = i;
-    }
-
-    SortCustom1D(sorted, count, SortByDamage);
-
-    for (int k = 0; k < g_iTopMax && k < count; k++)
-        g_iTopDefenders[k] = sorted[k];
-}
-
-public int SortByDamage(int elem1, int elem2, const int[] array, Handle hndl)
-{
-    return g_iDamage[elem2] - g_iDamage[elem1];
-}
-
-public void Event_PlayerHurt(Event hEvent, const char[] sEvName, bool bDontBroadcast)
-{
-    int victim   = GetClientOfUserId(hEvent.GetInt("userid"));
-    int attacker = GetClientOfUserId(hEvent.GetInt("attacker"));
-
-    if (attacker > 0 && attacker <= MaxClients && victim > 0 && victim <= MaxClients)
-    {
-        if (GetClientTeam(attacker) == CS_TEAM_CT && GetClientTeam(victim) == CS_TEAM_T)
+        if (g_iTopDmg[i][0] > 0 && IsClientInGame(g_iTopDmg[i][0]))
         {
-            g_iDamage[attacker] += hEvent.GetInt("dmg_health");
+            g_iTopDefenders[idx++] = g_iTopDmg[i][0];
         }
     }
 }
 
-public Action ZR_OnClientInfect(int &client, int &attacker, bool &motherinfect, bool &respawnoverride, bool &respawn)
+public void Event_PlayerHurt(Event hEvent, const char[] sEvName, bool bDontBroadcast)
 {
-    if (attacker > 0 && IsClientInGame(attacker))
+    int iAttacker = GetClientOfUserId(hEvent.GetInt("attacker"));
+
+    if(0 < iAttacker && iAttacker <= MaxClients)
     {
-        g_iInfect[attacker]++;
+        g_iTopDmg[iAttacker][0] = iAttacker;
+        g_iTopDmg[iAttacker][1] += hEvent.GetInt("dmg_health");
     }
-    return Plugin_Continue;
 }
 
-void ShowTopStats()
+public void Event_PlayerDeath(Event hEvent, const char[] sEvName, bool bDontBroadcast)
 {
-    char buffer[256];
+    int iVictim = GetClientOfUserId(hEvent.GetInt("userid"));
+    int iAttacker = GetClientOfUserId(hEvent.GetInt("attacker"));
+
+    if(0 < iAttacker && iAttacker <= MaxClients && 0 < iVictim && iVictim <= MaxClients)
+    {
+        if(GetClientTeam(iAttacker) == 2 && GetClientTeam(iVictim) == 3)
+        {
+            g_iTopInfect[iAttacker][0] = iAttacker;
+            ++g_iTopInfect[iAttacker][1];
+        }
+    }
+}
+
+void OSTopShow()
+{
+    OSTopForming();
+
+    int iTopNum;
+    char sBuffer[256];
 
     // --- TOP DEFENDERS ---
-    SetHudTextParams(0.0, 0.35, 10.0, 0, 0, 255, 255);
-    Format(buffer, sizeof(buffer), "TOP DEFENDERS\n====================\n");
-
-    int sorted[MAXPLAYERS+1];
-    int count = 0;
-    for (int i = 1; i <= MaxClients; i++)
-        if (IsClientInGame(i) && g_iDamage[i] > 0)
-            sorted[count++] = i;
-
-    SortCustom1D(sorted, count, SortByDamage);
-
-    for (int k = 0; k < g_iTopMax && k < count; k++)
-        Format(buffer, sizeof(buffer), "%s#%d %N - %d DMG\n", buffer, k+1, sorted[k], g_iDamage[sorted[k]]);
-
-    for (int i = 1; i <= MaxClients; i++)
-        if (IsClientInGame(i)) ShowHudText(i, 1, "%s", buffer);
+    SetHudTextParams(0.0, 0.35, 15.0, 0, 0, 255, 255, 0, 1.0, 1.0, 1.0);
+    Format(sBuffer, sizeof(sBuffer), "TOP DEFENDERS\n====================\n");
+    for(int i = MaxClients; i > MaxClients - g_iTopMax; --i)
+    {
+        if(g_iTopDmg[i][0] > 0 && IsClientInGame(g_iTopDmg[i][0]))
+        {
+            ++iTopNum;
+            Format(sBuffer, sizeof(sBuffer), "%s#%i %N - %i DMG\n", sBuffer, iTopNum, g_iTopDmg[i][0], g_iTopDmg[i][1]);
+        }
+    }
+    Format(sBuffer, sizeof(sBuffer), "%s====================", sBuffer);
+    for(int iClient = 1; iClient <= MaxClients; ++iClient) {
+        if(IsClientInGame(iClient)) ShowHudText(iClient, 1, "%s", sBuffer);
+    }
 
     // --- TOP INFECTORS ---
-    SetHudTextParams(0.0, 0.55, 10.0, 255, 0, 0, 255);
-    buffer[0] = '\0';
-    Format(buffer, sizeof(buffer), "TOP INFECTORS\n====================\n");
+    iTopNum = 0;
+    sBuffer[0] = '\0';
 
-    count = 0;
-    for (int i = 1; i <= MaxClients; i++)
-        if (IsClientInGame(i) && g_iInfect[i] > 0)
-            sorted[count++] = i;
-
-    SortCustom1D(sorted, count, SortByInfect);
-
-    for (int k = 0; k < g_iTopMax && k < count; k++)
-        Format(buffer, sizeof(buffer), "%s#%d %N - %d INFECTED\n", buffer, k+1, sorted[k], g_iInfect[sorted[k]]);
-
-    for (int i = 1; i <= MaxClients; i++)
-        if (IsClientInGame(i)) ShowHudText(i, 2, "%s", buffer);
+    SetHudTextParams(0.0, 0.55, 15.0, 255, 0, 0, 255, 0, 1.0, 1.0, 1.0);
+    Format(sBuffer, sizeof(sBuffer), "TOP INFECTORS\n====================\n");
+    for(int i = MaxClients; i > MaxClients - g_iTopMax; --i)
+    {
+        if(g_iTopInfect[i][0] > 0 && IsClientInGame(g_iTopInfect[i][0]))
+        {
+            ++iTopNum;
+            Format(sBuffer, sizeof(sBuffer), "%s#%i %N - %i INFECTED\n", sBuffer, iTopNum, g_iTopInfect[i][0], g_iTopInfect[i][1]);
+        }
+    }
+    Format(sBuffer, sizeof(sBuffer), "%s====================", sBuffer);
+    for(int iClient = 1; iClient <= MaxClients; ++iClient) {
+        if(IsClientInGame(iClient)) ShowHudText(iClient, 2, "%s", sBuffer);
+    }
 }
 
-public int SortByInfect(int elem1, int elem2, const int[] array, Handle hndl)
+void OSTopForming()
 {
-    return g_iInfect[elem2] - g_iInfect[elem1];
+    for(int i = 1; i <= MaxClients; ++i)
+    {
+        for(int j = 1; j < MaxClients; ++j)
+        {
+            if(g_iTopDmg[j][1] > g_iTopDmg[j+1][1])
+                OnDistribution(j);
+
+            if(g_iTopInfect[j][1] > g_iTopInfect[j+1][1])
+                OnDistribution2(j);
+        }
+    }
+}
+
+void OnDistribution(int j)
+{
+    int iIndex = g_iTopDmg[j][0];
+    int iDmg = g_iTopDmg[j][1];
+    g_iTopDmg[j][0] = g_iTopDmg[j+1][0];
+    g_iTopDmg[j][1] = g_iTopDmg[j+1][1];
+    g_iTopDmg[j+1][0] = iIndex;
+    g_iTopDmg[j+1][1] = iDmg;
+}
+
+void OnDistribution2(int j)
+{
+    int iIndex = g_iTopInfect[j][0];
+    int iInfect = g_iTopInfect[j][1];
+    g_iTopInfect[j][0] = g_iTopInfect[j+1][0];
+    g_iTopInfect[j][1] = g_iTopInfect[j+1][1];
+    g_iTopInfect[j+1][0] = iIndex;
+    g_iTopInfect[j+1][1] = iInfect;
 }
