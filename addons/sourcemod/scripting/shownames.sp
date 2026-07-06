@@ -19,7 +19,7 @@ public Plugin myinfo =
     name = "ShowNames",
     author = "AntiTeal, edit by Shane, NZ",
     description = "Shows names, damage and hitmarkers",
-    version = "1.8",
+    version = "1.7",
     url = "www.joinsg.net"
 }
 
