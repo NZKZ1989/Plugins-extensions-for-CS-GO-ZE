@@ -17,8 +17,8 @@ char ctFormat[256], tFormat[256], damageFormatT[256], damageFormatCT[256];
 public Plugin myinfo =
 {
     name = "ShowNames",
-    author = "AntiTeal, edit by Shane, fix by NZKZ",
-    description = "Shows names, damage and hitmarkers in CS:GO.",
+    author = "AntiTeal, edit by Shane, NZ",
+    description = "Shows names, damage and hitmarkers",
     version = "1.8",
     url = "www.joinsg.net"
 }
